@@ -26,8 +26,6 @@
     min-height: 100vh;
     padding: 0 0 60px;
   }
-
-  /* HEADER */
   .header {
     background: linear-gradient(135deg, #0e0e1a 0%, #14142a 50%, #0a0a1a 100%);
     border-bottom: 1px solid var(--border);
@@ -86,8 +84,6 @@
     display: flex; align-items: center; gap: 6px;
   }
   .stat-chip span { color: var(--accent); font-weight: 600; }
-
-  /* TABS */
   .tabs-wrap {
     padding: 20px 16px 0;
     overflow-x: auto;
@@ -99,7 +95,6 @@
     gap: 8px;
     min-width: max-content;
     border-bottom: 1px solid var(--border);
-    padding-bottom: 0;
   }
   .tab {
     padding: 10px 16px;
@@ -117,24 +112,12 @@
     display: flex; align-items: center; gap: 6px;
   }
   .tab:hover { color: var(--text); }
-  .tab.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-  }
-  .tab-dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--accent);
-    opacity: 0.5;
-  }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); opacity: 0.5; }
   .tab.active .tab-dot { opacity: 1; }
-
-  /* CONTENT */
   .content { padding: 20px 16px; }
   .section { display: none; }
   .section.active { display: block; }
-
-  /* SECTION HEADER */
   .section-intro {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -146,7 +129,86 @@
     color: var(--muted);
     line-height: 1.6;
   }
-
+  /* INTRO CARD */
+  .intro-section {
+    background: linear-gradient(135deg, #12121a 0%, #1a1226 100%);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .intro-section::before {
+    content: '';
+    position: absolute;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(108,99,255,0.1) 0%, transparent 70%);
+    top: -60px; right: -40px;
+    pointer-events: none;
+  }
+  .intro-header { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+  .intro-avatar {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 20px; font-weight: 800; color: #fff;
+    flex-shrink: 0;
+  }
+  .intro-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px; font-weight: 800;
+    background: linear-gradient(135deg, #fff 0%, #a0a0ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .intro-role { font-size: 11px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; margin-top: 3px; }
+  .intro-bio { font-size: 13px; color: #b0b0cc; line-height: 1.7; margin-bottom: 14px; }
+  .intro-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .intro-tag {
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--accent);
+  }
+  .intro-highlights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .intro-hl {
+    background: rgba(108,99,255,0.07);
+    border: 1px solid rgba(108,99,255,0.2);
+    border-radius: 10px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .intro-hl-num { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--accent2); }
+  .intro-hl-label { font-size: 10px; color: var(--muted); margin-top: 2px; font-family: 'IBM Plex Mono', monospace; }
+  .intro-pitch {
+    background: rgba(0,212,170,0.07);
+    border: 1px solid rgba(0,212,170,0.2);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--accent2);
+    line-height: 1.6;
+    margin-top: 14px;
+    font-style: italic;
+  }
+  .intro-pitch-label {
+    font-style: normal;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--accent2);
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
   /* Q CARD */
   .q-card {
     background: var(--card);
@@ -158,7 +220,6 @@
   }
   .q-card:hover { border-color: #3a3a55; }
   .q-card.open { border-color: var(--accent); }
-
   .q-header {
     display: flex;
     align-items: flex-start;
@@ -179,41 +240,15 @@
     margin-top: 2px;
     flex-shrink: 0;
   }
-  .q-text {
-    flex: 1;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.5;
-    color: var(--text);
-  }
-  .q-badge {
-    font-size: 10px;
-    font-family: 'IBM Plex Mono', monospace;
-    padding: 2px 8px;
-    border-radius: 10px;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
+  .q-text { flex: 1; font-size: 14px; font-weight: 500; line-height: 1.5; color: var(--text); }
+  .q-badge { font-size: 10px; font-family: 'IBM Plex Mono', monospace; padding: 2px 8px; border-radius: 10px; flex-shrink: 0; margin-top: 2px; }
   .badge-hard { background: rgba(255,107,107,0.15); color: var(--accent3); }
   .badge-med { background: rgba(255,193,7,0.12); color: #ffc107; }
   .badge-easy { background: rgba(0,212,170,0.12); color: var(--accent2); }
-
-  .chevron {
-    font-size: 16px;
-    color: var(--muted);
-    transition: transform 0.25s;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
+  .chevron { font-size: 16px; color: var(--muted); transition: transform 0.25s; flex-shrink: 0; margin-top: 1px; }
   .q-card.open .chevron { transform: rotate(180deg); color: var(--accent); }
-
-  .q-answer {
-    display: none;
-    padding: 0 16px 16px 16px;
-    border-top: 1px solid var(--border);
-  }
+  .q-answer { display: none; padding: 0 16px 16px 16px; border-top: 1px solid var(--border); }
   .q-card.open .q-answer { display: block; }
-
   .answer-label {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10px;
@@ -222,11 +257,7 @@
     margin: 12px 0 8px;
     text-transform: uppercase;
   }
-  .answer-text {
-    font-size: 13px;
-    line-height: 1.7;
-    color: #c0c0d8;
-  }
+  .answer-text { font-size: 13px; line-height: 1.7; color: #c0c0d8; }
   .answer-text strong { color: var(--text); }
   .answer-text code {
     background: rgba(108,99,255,0.15);
@@ -238,7 +269,6 @@
   }
   .answer-text ul { padding-left: 18px; margin: 6px 0; }
   .answer-text li { margin-bottom: 4px; }
-
   .tip-box {
     background: rgba(0,212,170,0.07);
     border: 1px solid rgba(0,212,170,0.2);
@@ -250,36 +280,13 @@
     display: flex; gap: 8px;
   }
   .tip-box::before { content: '💡'; flex-shrink: 0; }
-
-  /* PROGRESS */
-  .progress-bar-wrap {
-    background: var(--border);
-    border-radius: 4px;
-    height: 4px;
-    margin-bottom: 20px;
-    overflow: hidden;
-  }
-  .progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    border-radius: 4px;
-    transition: width 0.4s ease;
-    width: 0%;
-  }
-
-  /* CHECKLIST */
-  .checklist-grid {
-    display: grid;
-    gap: 10px;
-  }
+  .checklist-grid { display: grid; gap: 10px; }
   .check-item {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: flex; align-items: center; gap: 12px;
     cursor: pointer;
     transition: all 0.2s;
   }
@@ -294,29 +301,12 @@
     font-size: 12px;
     transition: all 0.2s;
   }
-  .check-item.done .check-box {
-    background: var(--accent2);
-    border-color: var(--accent2);
-    color: #000;
-  }
+  .check-item.done .check-box { background: var(--accent2); border-color: var(--accent2); color: #000; }
   .check-label { font-size: 13px; color: var(--text); }
   .check-item.done .check-label { color: var(--muted); text-decoration: line-through; }
-
-  /* TIPS SECTION */
   .tip-grid { display: grid; gap: 12px; }
-  .tip-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px;
-  }
-  .tip-card-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    display: flex; align-items: center; gap: 8px;
-  }
+  .tip-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+  .tip-card-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
   .tip-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
 </style>
 </head>
@@ -327,8 +317,8 @@
   <h1>Suryansh Bajpai</h1>
   <div class="header-sub">Junior SWE Intern → PPO Target 🎯</div>
   <div class="stats-row">
-    <div class="stat-chip"><span>35+</span> Questions</div>
-    <div class="stat-chip"><span>6</span> Categories</div>
+    <div class="stat-chip"><span>55+</span> Questions</div>
+    <div class="stat-chip"><span>7</span> Categories</div>
     <div class="stat-chip">Interview Tomorrow</div>
   </div>
 </div>
@@ -337,6 +327,7 @@
   <div class="tabs">
     <button class="tab active" onclick="showTab('resume')"><div class="tab-dot"></div>Resume-Based</button>
     <button class="tab" onclick="showTab('react')"><div class="tab-dot"></div>React</button>
+    <button class="tab" onclick="showTab('js')"><div class="tab-dot"></div>JavaScript</button>
     <button class="tab" onclick="showTab('db')"><div class="tab-dot"></div>SQL / MongoDB</button>
     <button class="tab" onclick="showTab('python')"><div class="tab-dot"></div>Python / Flask</button>
     <button class="tab" onclick="showTab('cs')"><div class="tab-dot"></div>CS Fundamentals</button>
@@ -346,38 +337,67 @@
 
 <div class="content">
 
-<!-- ===================== RESUME ===================== -->
 <div id="tab-resume" class="section active">
+  <div class="intro-section">
+    <div class="intro-header">
+      <div class="intro-avatar">SB</div>
+      <div>
+        <div class="intro-name">Suryansh Bajpai</div>
+        <div class="intro-role">Full-Stack Dev · Data Science · IIT Madras + PGDAV Delhi</div>
+      </div>
+    </div>
+    <div class="intro-bio">
+      Final-year student simultaneously pursuing a <strong>B.Sc. in Data Science from IIT Madras</strong> (online/self-paced) and <strong>B.Sc. (Hons) Computer Science from PGDAV College, Delhi University</strong>. Built and shipped two production systems that real users depend on — a placement portal for 4000+ students and a hospital management system in Flask+SQLite. Stack covers Python, JavaScript, React, Flask, MySQL, MongoDB, Docker.
+    </div>
+    <div class="intro-tags">
+      <span class="intro-tag">Python</span>
+      <span class="intro-tag">JavaScript</span>
+      <span class="intro-tag">ReactJS</span>
+      <span class="intro-tag">Flask</span>
+      <span class="intro-tag">MySQL</span>
+      <span class="intro-tag">MongoDB</span>
+      <span class="intro-tag">Docker</span>
+      <span class="intro-tag">REST APIs</span>
+    </div>
+    <div class="intro-highlights">
+      <div class="intro-hl"><div class="intro-hl-num">4200+</div><div class="intro-hl-label">Users handled</div></div>
+      <div class="intro-hl"><div class="intro-hl-num">18</div><div class="intro-hl-label">Table DB schema</div></div>
+      <div class="intro-hl"><div class="intro-hl-num">2</div><div class="intro-hl-label">Live prod systems</div></div>
+    </div>
+    <div class="intro-pitch">
+      <span class="intro-pitch-label">🎤 Elevator Pitch — say this out loud</span>
+      "I'm Suryansh, CS and Data Science student — IIT Madras online plus PGDAV Delhi. I've built two production systems real people use daily: a placement portal for 4000+ students and a hospital management system in Flask. My stack is Python, JavaScript, React, MySQL, and MongoDB. I'm looking to go deeper into backend and full-stack engineering while contributing from day one."
+    </div>
+  </div>
   <div class="section-intro">These are drawn directly from your resume. Expect the interviewer to drill into your projects and numbers. Have crisp, specific answers ready.</div>
-
   <div id="q-resume"></div>
 </div>
 
-<!-- ===================== REACT ===================== -->
 <div id="tab-react" class="section">
   <div class="section-intro">Your resume lists ReactJS — be ready for conceptual + practical questions. Focus on hooks, component lifecycle, and state management.</div>
   <div id="q-react"></div>
 </div>
 
-<!-- ===================== DB ===================== -->
+<div id="tab-js" class="section">
+  <div class="section-intro">JavaScript is the backbone of your frontend work. Expect core language questions, async patterns, DOM manipulation, and REST API calls from the browser — all directly relevant to your projects.</div>
+  <div id="q-js"></div>
+</div>
+
 <div id="tab-db" class="section">
   <div class="section-intro">You've listed MySQL, PostgreSQL, MongoDB, and SQLite — all fair game. Expect JOIN queries, indexing, and NoSQL vs SQL trade-offs.</div>
   <div id="q-db"></div>
 </div>
 
-<!-- ===================== PYTHON ===================== -->
 <div id="tab-python" class="section">
-  <div class="section-intro">Python is your primary language and Flask is in your projects. Expect language fundamentals + Flask-specific questions.</div>
+  <div class="section-intro">Python is your primary language and Flask is in your projects. Expect language fundamentals + Flask-specific questions including REST API building.</div>
   <div id="q-python"></div>
 </div>
 
-<!-- ===================== CS FUNDAMENTALS ===================== -->
 <div id="tab-cs" class="section">
   <div class="section-intro">For a junior SWE intern role, expect basic DSA, OOP, and web fundamentals. Don't overthink — clean answers beat perfect ones.</div>
   <div id="q-cs"></div>
 </div>
 
-<!-- ===================== PREP ===================== -->
 <div id="tab-prep" class="section">
   <div class="tip-grid">
     <div class="tip-card">
@@ -401,7 +421,6 @@
       <p>You have REAL production experience — 4000+ student placement site, 4200+ user analytics. Lead with this. Most interns have only tutorial projects. You shipped real things.</p>
     </div>
   </div>
-
   <div style="margin-top:24px">
     <div class="answer-label">Pre-Interview Checklist</div>
     <div class="checklist-grid" id="checklist"></div>
@@ -416,13 +435,13 @@ const data = {
     {
       q: "Walk me through your Placement Cell Website project.",
       diff: "easy",
-      a: `Start with the <strong>problem</strong>: the college had no digital placement portal. You built one solo/in a small team using HTML, CSS, Bootstrap.<br><br>
+      a: `Start with the <strong>problem</strong>: the college had no digital placement portal. You built one using HTML, CSS, Bootstrap.<br><br>
 Key metrics to mention: <strong>10+ features</strong>, <strong>4000+ students</strong>, <strong>50+ recruiters</strong>, <strong>2000+ monthly visits</strong>, delivered in <strong>2 months</strong>.<br><br>
 Mention the challenges: making it responsive for mobile, handling concurrent recruiter/student access, SEO/visibility for monthly visits metric.`,
       tip: "End with: 'This is live today and still being used, which taught me the importance of maintainable code.'"
     },
     {
-      q: "Your resume says you built a 18-table database schema. Explain the design decisions.",
+      q: "Your resume says you built an 18-table database schema. Explain the design decisions.",
       diff: "hard",
       a: `Explain the major entities: <strong>Students, Recruiters, Job Postings, Applications, Interview Rounds, Results</strong> — these alone give ~6-8 tables.<br><br>
 Talk about normalization: you avoided data duplication by separating company info from job postings. Mention foreign keys and indexes on frequently-queried columns (student_id, company_id).<br><br>
@@ -441,7 +460,11 @@ If it was MySQL-based: explain query logs, aggregation queries (COUNT, GROUP BY)
       q: "Tell me about your Hospital Management System — what was the hardest part?",
       diff: "med",
       a: `Stack: <strong>HTML, CSS, Jinja2, Flask, Bootstrap, SQLite</strong>. Core modules: patient registration, doctor management, appointment booking, medical history.<br><br>
-<strong>Hardest part</strong> (pick one): <ul><li>Appointment conflict detection — ensuring no double-booking for a doctor at the same time slot</li><li>Jinja2 templating for dynamic forms that adapt to patient vs. doctor views</li><li>Session management in Flask for role-based access (admin vs. doctor vs. receptionist)</li></ul>`,
+<strong>Hardest part</strong> (pick one):<ul>
+<li>Appointment conflict detection — ensuring no double-booking for a doctor at the same time slot</li>
+<li>Jinja2 templating for dynamic forms that adapt to patient vs. doctor views</li>
+<li>Session management in Flask for role-based access (admin vs. doctor vs. receptionist)</li>
+</ul>`,
       tip: "Mention any edge cases you handled — e.g., what happens if a patient cancels 5 minutes before?"
     },
     {
@@ -449,7 +472,7 @@ If it was MySQL-based: explain query logs, aggregation queries (COUNT, GROUP BY)
       diff: "hard",
       a: `This is a probing question — be honest and specific. The Excel tracking system had <strong>500+ records</strong>.<br><br>
 Efficiency gain could be measured by: <strong>time per record processed</strong> (before vs. after automation), response rate on outreach, or number of contacts reached per week.<br><br>
-25% = baseline was X contacts/week, you got to 1.25X after the system was implemented. Tie it to a formula or comparison period (e.g., first month vs. second month).`,
+25% = baseline was X contacts/week, you got to 1.25X after the system was implemented. Tie it to a formula or comparison period.`,
       tip: "If you're unsure of exact methodology, say: 'We measured it by tracking weekly outreach volume in the same Excel system.'"
     },
     {
@@ -457,15 +480,15 @@ Efficiency gain could be measured by: <strong>time per record processed</strong>
       diff: "easy",
       a: `IIT Madras BS in Data Science is online/self-paced — emphasize this. It doesn't conflict with PGDAV classes.<br><br>
 Talk about time management: dedicated study blocks, using weekends for IIT assignments, leveraging overlap (Python/stats skills apply to both).<br><br>
-Frame it as a <strong>strength</strong>: "It's made me highly self-disciplined and comfortable learning independently — skills that are crucial for remote/async work in startups."`,
+Frame it as a <strong>strength</strong>: "It's made me highly self-disciplined and comfortable learning independently — skills crucial for remote/async work in startups."`,
       tip: "Mention one thing from the IIT curriculum you've applied: NumPy, Pandas, statistics, ML basics."
     },
     {
       q: "As a Student Coordinator on the ERP Committee — what did you actually build?",
       diff: "med",
       a: `You were <strong>1 of 2 students</strong> selected — lead with that exclusivity. Your role: early-stage system design, requirements analysis, feature implementation in production.<br><br>
-An ERP (Enterprise Resource Planning) for a college covers: attendance, fee management, timetable, library, hostel. You were in the requirements + design phase.<br><br>
-Talk about: gathering requirements from faculty/admin, creating user stories, deciding data models, or participating in code reviews.`,
+An ERP for a college covers: attendance, fee management, timetable, library, hostel. You were in the requirements + design phase.<br><br>
+Talk about: gathering requirements from faculty/admin, creating user stories, deciding data models, participating in code reviews.`,
       tip: "If asked about tech stack: it's fine to say it's being decided — what matters is your process."
     },
     {
@@ -491,7 +514,6 @@ This is faster than directly manipulating the DOM because batch updates are comp
       q: "Explain useState and useEffect with an example.",
       diff: "easy",
       a: `<code>useState</code> manages component-level state. <code>useEffect</code> handles side effects (API calls, subscriptions, timers).<br><br>
-Example: <br>
 <code>const [data, setData] = useState(null);</code><br>
 <code>useEffect(() => { fetch('/api').then(r => r.json()).then(setData); }, []);</code><br><br>
 The empty array <code>[]</code> as dependency means it runs once on mount. Add a variable to re-run when it changes.`,
@@ -501,7 +523,7 @@ The empty array <code>[]</code> as dependency means it runs once on mount. Add a
       q: "What are controlled vs uncontrolled components?",
       diff: "med",
       a: `<strong>Controlled</strong>: React state is the single source of truth. Every keystroke triggers setState. You always know the input value.<br>
-<code>&lt;input value={val} onChange={e => setVal(e.target.value)} /&gt;</code><br><br>
+<code>&lt;input value={val} onChange={e =&gt; setVal(e.target.value)} /&gt;</code><br><br>
 <strong>Uncontrolled</strong>: DOM manages its own state. You read the value using a <code>ref</code> when needed (e.g., on submit).<br><br>
 Use controlled for form validation, use uncontrolled for simple file inputs or integrating with non-React libraries.`
     },
@@ -512,14 +534,14 @@ Use controlled for form validation, use uncontrolled for simple file inputs or i
 Solutions:<ul>
 <li><strong>Context API</strong>: <code>React.createContext()</code> + <code>useContext()</code> — good for global state like auth, theme</li>
 <li><strong>State management libraries</strong>: Redux, Zustand, Jotai for complex apps</li>
-<li><strong>Component composition</strong>: restructure components so the consumer is closer to the provider</li>
+<li><strong>Component composition</strong>: restructure so the consumer is closer to the provider</li>
 </ul>`,
       tip: "Say: 'For the Placement Cell, if I were to rebuild it in React, I'd use Context for student auth state.'"
     },
     {
       q: "What is the difference between useMemo and useCallback?",
       diff: "hard",
-      a: `Both are for <strong>performance optimization</strong> — they memoize (cache) values to avoid unnecessary re-computation.<br><br>
+      a: `Both are for <strong>performance optimization</strong> — memoize (cache) values to avoid unnecessary re-computation.<br><br>
 <code>useMemo</code>: memoizes the <strong>result of a function</strong>. Use when a calculation is expensive.<br>
 <code>const sorted = useMemo(() => heavySort(list), [list]);</code><br><br>
 <code>useCallback</code>: memoizes the <strong>function itself</strong>. Use when passing callbacks to child components to prevent re-renders.<br>
@@ -533,7 +555,163 @@ Solutions:<ul>
 Basic pattern: one <code>handleChange</code> function for all fields using <code>e.target.name</code> and <code>e.target.value</code>.<br><br>
 Libraries: <strong>React Hook Form</strong> (most popular — minimal re-renders), <strong>Formik</strong> (older, more verbose), <strong>Zod/Yup</strong> for validation schema.<br><br>
 If you haven't used them: "I've handled forms manually, but I know React Hook Form is the industry standard for performance."`,
-      tip: "Tie to your project: 'In the hospital system, I managed appointment booking forms in Flask/Jinja — the same concepts of validation and state apply.'"
+      tip: "Tie to your project: 'In the hospital system, I managed appointment booking forms in Flask/Jinja — the same validation concepts apply.'"
+    }
+  ],
+  js: [
+    {
+      q: "What is the difference between var, let, and const?",
+      diff: "easy",
+      a: `<strong>var</strong>: Function-scoped, hoisted, can be re-declared. Avoid in modern JS — too many footguns.<br><br>
+<strong>let</strong>: Block-scoped, can be reassigned but not re-declared. Use when value changes.<br><br>
+<strong>const</strong>: Block-scoped, cannot be reassigned. Use by default.<br><br>
+Important: <code>const arr = [1,2,3]; arr.push(4);</code> — this is fine. You're mutating the array's contents, not reassigning the variable.`,
+      tip: "Rule of thumb: always const. Use let only when you actually need to reassign. Never use var."
+    },
+    {
+      q: "What is the difference between == and === in JavaScript?",
+      diff: "easy",
+      a: `<strong>==</strong> (loose equality): Compares values after <strong>type coercion</strong>. JS converts types before comparing.<br>
+<code>0 == "0"</code> → true &nbsp;&nbsp; <code>null == undefined</code> → true<br><br>
+<strong>===</strong> (strict equality): Compares <strong>value AND type</strong>. No coercion.<br>
+<code>0 === "0"</code> → false &nbsp;&nbsp; <code>null === undefined</code> → false<br><br>
+Always use <code>===</code>. The coercion rules in == are complex and produce surprising results.`
+    },
+    {
+      q: "Explain closures in JavaScript with an example.",
+      diff: "med",
+      a: `A closure is a function that <strong>remembers variables from its outer scope</strong> even after the outer function has finished executing.<br><br>
+<code>function makeCounter() {<br>
+&nbsp;&nbsp;let count = 0;<br>
+&nbsp;&nbsp;return function() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;count++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return count;<br>
+&nbsp;&nbsp;};<br>
+}<br>
+const counter = makeCounter();<br>
+counter(); // 1<br>
+counter(); // 2</code><br><br>
+<code>count</code> is private — nothing outside can access it. Real uses: data privacy, event handlers, memoization. React hooks use closures internally.`
+    },
+    {
+      q: "What is event delegation in JavaScript?",
+      diff: "med",
+      a: `Attaching a <strong>single event listener to a parent</strong> instead of individual listeners on each child — leveraging event bubbling.<br><br>
+<code>document.getElementById('list').addEventListener('click', function(e) {<br>
+&nbsp;&nbsp;if (e.target.tagName === 'LI') {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log('Clicked:', e.target.textContent);<br>
+&nbsp;&nbsp;}<br>
+});</code><br><br>
+<strong>Why it matters</strong>: More performant with many elements, works on dynamically added elements, cleaner code.`,
+      tip: "Tie to your placement site: 'I used event delegation for the recruiter listings table instead of a click handler per row.'"
+    },
+    {
+      q: "What are Promises and async/await? How do they differ?",
+      diff: "med",
+      a: `Both handle async operations. async/await is syntactic sugar over Promises — same thing, more readable.<br><br>
+<strong>Promise (chaining):</strong><br>
+<code>fetch('/api/data').then(r => r.json()).then(data => console.log(data)).catch(err => console.error(err));</code><br><br>
+<strong>async/await (same thing, cleaner):</strong><br>
+<code>async function getData() {<br>
+&nbsp;&nbsp;try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const res = await fetch('/api/data');<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const data = await res.json();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.log(data);<br>
+&nbsp;&nbsp;} catch(err) { console.error(err); }<br>
+}</code><br><br>
+<code>await</code> pauses execution inside that function only — doesn't freeze the browser. Both are non-blocking.`
+    },
+    {
+      q: "What is the DOM? How do you manipulate it with JavaScript?",
+      diff: "easy",
+      a: `The <strong>DOM (Document Object Model)</strong> is a tree-like representation of the HTML page that JS can read and modify.<br><br>
+<code>// Select elements<br>
+const el = document.getElementById('myId');<br>
+const els = document.querySelectorAll('.myClass');<br><br>
+// Modify content and style<br>
+el.textContent = 'New text';<br>
+el.classList.add('active');<br>
+el.style.color = 'red';<br><br>
+// Create and insert<br>
+const div = document.createElement('div');<br>
+document.body.appendChild(div);</code>`,
+      tip: "Mention: React's Virtual DOM abstracts direct DOM manipulation — but knowing vanilla DOM is important for debugging."
+    },
+    {
+      q: "What is an API? What is REST? How do you call one from JavaScript?",
+      diff: "easy",
+      a: `<strong>API</strong>: A set of rules that lets two systems communicate. A <strong>REST API</strong> uses HTTP — you hit a URL, get JSON back. Each URL = a resource. HTTP verbs tell the server what to do with it.<br><br>
+<strong>GET request:</strong><br>
+<code>const res = await fetch('https://api.example.com/users');<br>
+const data = await res.json();<br>
+console.log(data);</code><br><br>
+<strong>POST request (send data):</strong><br>
+<code>const res = await fetch('/api/patients', {<br>
+&nbsp;&nbsp;method: 'POST',<br>
+&nbsp;&nbsp;headers: { 'Content-Type': 'application/json' },<br>
+&nbsp;&nbsp;body: JSON.stringify({ name: 'John', age: 25 })<br>
+});<br>
+const result = await res.json();</code>`,
+      tip: "If you added React to your HMS, the frontend would call Flask endpoints exactly like this."
+    },
+    {
+      q: "How do you properly handle errors when calling a REST API with fetch?",
+      diff: "med",
+      a: `<strong>Critical gotcha</strong>: fetch() only throws on network failure. A 404 or 500 is still a "successful" fetch — you must check <code>res.ok</code> yourself.<br><br>
+<code>async function fetchPatients() {<br>
+&nbsp;&nbsp;try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const res = await fetch('/api/patients');<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (!res.ok) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new Error('HTTP error: ' + res.status);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;const data = await res.json();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return data;<br>
+&nbsp;&nbsp;} catch (err) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;console.error('Fetch failed:', err.message);<br>
+&nbsp;&nbsp;}<br>
+}</code><br><br>
+Two things can go wrong: <strong>network failure</strong> (catch handles it) and <strong>bad HTTP status</strong> (you must check res.ok manually).`
+    },
+    {
+      q: "What is JSON and how does it work when calling APIs?",
+      diff: "easy",
+      a: `<strong>JSON</strong>: A text format for sending data between systems. Looks like a JS object but is actually a string.<br><br>
+<code>// Object → string (for sending)<br>
+JSON.stringify({ name: "Suryansh", age: 21 })<br>
+// → '{"name":"Suryansh","age":21}'<br><br>
+// String → object (for reading)<br>
+JSON.parse('{"name":"Suryansh"}')<br>
+// → { name: "Suryansh" }<br><br>
+// res.json() calls JSON.parse automatically</code><br><br>
+JSON supports: strings, numbers, booleans, arrays, objects, null. Does NOT support: functions, undefined, Date objects (use ISO strings instead).`
+    },
+    {
+      q: "What is CORS and why does it break API calls in the browser?",
+      diff: "hard",
+      a: `<strong>CORS (Cross-Origin Resource Sharing)</strong>: A browser security policy that blocks frontend JS from calling a different domain or port than the page is served from.<br><br>
+Example: React on <code>localhost:3000</code> calling Flask on <code>localhost:5000</code> → browser blocks it.<br><br>
+<strong>Fix on Flask:</strong><br>
+<code>from flask_cors import CORS<br>
+CORS(app)  # allow all origins<br>
+CORS(app, origins=["http://localhost:3000"])  # or specific</code><br><br>
+Browser sends a preflight <code>OPTIONS</code> request first. Server must respond with <code>Access-Control-Allow-Origin</code> header or the actual request is blocked.<br><br>
+<strong>Key point</strong>: CORS is browser-only. Python's <code>requests</code> library calling the same API? No CORS at all.`,
+      tip: "Mentioning CORS unprompted shows real-world maturity — tutorial projects never hit it."
+    },
+    {
+      q: "What is the JavaScript event loop? How does async work under the hood?",
+      diff: "hard",
+      a: `JS is <strong>single-threaded</strong> — one thing at a time. Async works via the <strong>event loop</strong>:<ul>
+<li>Synchronous code runs on the <strong>call stack</strong></li>
+<li>Async ops (fetch, setTimeout) are handed to <strong>Web APIs</strong> (browser handles them separately)</li>
+<li>When done, callbacks go to the <strong>task queue</strong></li>
+<li>The <strong>event loop</strong> moves tasks from the queue → call stack when the stack is empty</li>
+</ul>
+<code>console.log('1');<br>
+setTimeout(() => console.log('2'), 0);<br>
+console.log('3');<br>
+// Output: 1, 3, 2</code><br><br>
+Even 0ms setTimeout goes through the queue — so '3' prints first. async/await doesn't run things in parallel, it just schedules callbacks smartly.`
     }
   ],
   db: [
@@ -556,42 +734,43 @@ Key concepts used: <strong>JOIN</strong> (combining tables), <strong>GROUP BY</s
 <strong>LEFT JOIN</strong>: Returns ALL rows from left table + matching rows from right. Non-matches show NULL.<br>
 Use case: "Show all students, even those not yet placed."<br><br>
 <strong>RIGHT JOIN</strong>: Opposite of LEFT JOIN. All rows from right table.<br><br>
-<strong>FULL OUTER JOIN</strong>: All rows from both, NULLs where no match (not supported in MySQL directly).`
+<strong>FULL OUTER JOIN</strong>: All rows from both, NULLs where no match (not natively supported in MySQL).`
     },
     {
       q: "What is database indexing and when should you use it?",
       diff: "med",
       a: `An index is a data structure (B-tree by default in MySQL) that allows faster lookup — like a book's index vs reading every page.<br><br>
-<strong>Use index when</strong>: columns frequently used in WHERE, JOIN ON, or ORDER BY clauses. Example: <code>CREATE INDEX idx_student_id ON applications(student_id);</code><br><br>
-<strong>Downsides</strong>: Indexes slow down INSERT/UPDATE/DELETE (index must be updated too) and consume disk space. Don't index every column.`,
-      tip: "Relate to your 18-table schema: 'I indexed foreign keys like student_id and company_id for faster JOIN queries.'"
+<strong>Use index when</strong>: columns are frequently used in WHERE, JOIN ON, or ORDER BY clauses.<br>
+<code>CREATE INDEX idx_student_id ON applications(student_id);</code><br><br>
+<strong>Downsides</strong>: Slows down INSERT/UPDATE/DELETE (index must be updated too), consumes disk space. Don't index every column.`,
+      tip: "Relate to your schema: 'I indexed foreign keys like student_id and company_id for faster JOIN queries.'"
     },
     {
-      q: "What is the difference between MongoDB and MySQL? When would you choose one over the other?",
+      q: "What is the difference between MongoDB and MySQL? When would you choose one?",
       diff: "med",
       a: `<strong>MySQL (Relational)</strong>: Tables with fixed schema, SQL, ACID compliant. Best for structured data with relationships — banking, ERP, placement systems.<br><br>
-<strong>MongoDB (NoSQL/Document)</strong>: Stores JSON-like documents, flexible schema, horizontal scaling. Best for unstructured/semi-structured data — user activity logs, content management, real-time apps.<br><br>
-Choose MongoDB when: schema evolves rapidly, data is hierarchical/nested, need high write throughput.<br>
-Choose MySQL when: data integrity is critical, complex relationships, transactions needed.`,
-      tip: "Mention your actual use: 'I used MySQL for the placement site because it had strict relational data. For a user activity feed, I'd consider MongoDB.'"
+<strong>MongoDB (NoSQL/Document)</strong>: Stores JSON-like documents, flexible schema, horizontal scaling. Best for unstructured/semi-structured data — logs, content management, real-time apps.<br><br>
+Choose MongoDB: schema evolves rapidly, data is deeply nested, high write throughput needed.<br>
+Choose MySQL: data integrity is critical, complex relationships, transactions needed.`,
+      tip: "Mention your actual use: 'I used MySQL for the placement site — strict relational data. For a user activity feed, I'd consider MongoDB.'"
     },
     {
       q: "Explain what a transaction is and what ACID properties mean.",
       diff: "hard",
-      a: `A transaction is a sequence of operations that executes as a single unit — all or nothing.<br><br>
+      a: `A transaction is a sequence of operations that executes as a single unit — all succeed or none do.<br><br>
 <strong>ACID</strong>:<ul>
-<li><strong>Atomicity</strong>: Either all operations succeed or none do (no partial updates)</li>
+<li><strong>Atomicity</strong>: All or nothing — no partial updates</li>
 <li><strong>Consistency</strong>: Database moves from one valid state to another</li>
-<li><strong>Isolation</strong>: Concurrent transactions don't interfere with each other</li>
+<li><strong>Isolation</strong>: Concurrent transactions don't interfere</li>
 <li><strong>Durability</strong>: Committed transactions survive system failures</li>
 </ul>
-Example: Bank transfer — debit account A AND credit account B must both succeed, or both roll back.`,
-      tip: "For SQLite (which you used): 'SQLite supports full ACID compliance, which was important for the Hospital Management System where data integrity is critical.'"
+Example: Bank transfer — debit A AND credit B must both succeed, or both roll back.`,
+      tip: "For SQLite (your HMS): 'SQLite supports full ACID compliance — critical where patient data integrity matters.'"
     },
     {
       q: "What is a MongoDB aggregation pipeline?",
       diff: "hard",
-      a: `An aggregation pipeline processes documents through a series of stages, each transforming the data.<br><br>
+      a: `Processes documents through a series of stages, each transforming the data.<br><br>
 Common stages:<ul>
 <li><code>$match</code>: Filter documents (like WHERE)</li>
 <li><code>$group</code>: Group and aggregate (like GROUP BY)</li>
@@ -599,7 +778,7 @@ Common stages:<ul>
 <li><code>$project</code>: Select/rename fields</li>
 <li><code>$lookup</code>: Join with another collection</li>
 </ul>
-Example: Get average salary by department from a jobs collection using <code>$match → $group → $sort</code>.`
+Example: Get average salary by department — <code>$match → $group → $sort</code>.`
     }
   ],
   python: [
@@ -607,19 +786,20 @@ Example: Get average salary by department from a jobs collection using <code>$ma
       q: "What is the difference between a list and a tuple in Python?",
       diff: "easy",
       a: `<strong>List</strong>: Mutable (can be changed), uses <code>[]</code>. Use for collections that change — shopping cart, search results.<br><br>
-<strong>Tuple</strong>: Immutable (cannot be changed), uses <code>()</code>. Use for fixed data — coordinates, RGB values, database records returned from a query.<br><br>
-Tuples are slightly <strong>faster</strong> and use less memory. They're also hashable (can be dictionary keys).`,
+<strong>Tuple</strong>: Immutable (cannot be changed), uses <code>()</code>. Use for fixed data — coordinates, RGB values, DB records.<br><br>
+Tuples are slightly <strong>faster</strong> and use less memory. They're also hashable so they can be dictionary keys.`,
       tip: "Fun fact: Function return values in Python are often tuples — e.g., returning (status_code, message)."
     },
     {
       q: "Explain Flask routing and how you handled different HTTP methods.",
       diff: "med",
       a: `Flask routes map URLs to Python functions using the <code>@app.route()</code> decorator.<br><br>
-<code>@app.route('/patients', methods=['GET', 'POST'])</code><br>
-<code>def patients():</code><br>
-<code>&nbsp;&nbsp;if request.method == 'POST': # handle form submission</code><br>
-<code>&nbsp;&nbsp;return render_template('patients.html')</code><br><br>
-In the Hospital Management System: GET for viewing patient list, POST for registering new patient, possibly PUT/DELETE for updates via fetch/AJAX.`,
+<code>@app.route('/patients', methods=['GET', 'POST'])<br>
+def patients():<br>
+&nbsp;&nbsp;if request.method == 'POST':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# handle form submission<br>
+&nbsp;&nbsp;return render_template('patients.html')</code><br><br>
+In the Hospital Management System: GET for viewing patient list, POST for registering new patient, PUT/DELETE for updates via AJAX.`,
       tip: "Mention: 'I used request.form for form data and session for login state management.'"
     },
     {
@@ -628,11 +808,11 @@ In the Hospital Management System: GET for viewing patient list, POST for regist
       a: `A decorator is a function that <strong>wraps another function</strong> to add behavior without modifying it.<br><br>
 Syntax: <code>@decorator_name</code> above a function definition.<br><br>
 Real examples:<ul>
-<li><strong>Flask routes</strong>: <code>@app.route('/dashboard')</code> is a decorator</li>
-<li><strong>Auth guard</strong>: <code>@login_required</code> — checks if user is logged in before executing the view</li>
+<li><strong>Flask routes</strong>: <code>@app.route('/dashboard')</code> is itself a decorator</li>
+<li><strong>Auth guard</strong>: <code>@login_required</code> — checks if user is logged in before running the view</li>
 <li><strong>Timing</strong>: Wrap any function to measure execution time</li>
 </ul>
-This is the <strong>decorator pattern</strong> — adds cross-cutting concerns without touching core logic.`,
+Adds cross-cutting concerns without touching core logic.`,
       tip: "Great answer: 'In my Flask app, I implemented a custom @login_required decorator to protect patient routes.'"
     },
     {
@@ -640,10 +820,53 @@ This is the <strong>decorator pattern</strong> — adds cross-cutting concerns w
       diff: "easy",
       a: `<strong>==</strong> checks <strong>value equality</strong> — do both objects have the same value?<br><br>
 <strong>is</strong> checks <strong>identity</strong> — are both variables pointing to the same object in memory?<br><br>
-<code>a = [1,2,3]; b = [1,2,3]</code><br>
-<code>a == b → True</code> (same value)<br>
-<code>a is b → False</code> (different objects in memory)<br><br>
+<code>a = [1,2,3]; b = [1,2,3]<br>
+a == b  →  True  (same value)<br>
+a is b  →  False  (different objects)</code><br><br>
 Use <code>is</code> for None checks: <code>if x is None</code> — this is the Pythonic way.`
+    },
+    {
+      q: "How do you build a REST API in Flask? Walk me through a complete example.",
+      diff: "med",
+      a: `A REST API maps HTTP verbs to CRUD operations on a resource.<br><br>
+<code>from flask import Flask, request, jsonify<br><br>
+@app.route('/api/patients', methods=['GET'])<br>
+def get_patients():<br>
+&nbsp;&nbsp;rows = db.execute("SELECT * FROM patients").fetchall()<br>
+&nbsp;&nbsp;return jsonify([dict(r) for r in rows]), 200<br><br>
+@app.route('/api/patients', methods=['POST'])<br>
+def create_patient():<br>
+&nbsp;&nbsp;data = request.get_json()<br>
+&nbsp;&nbsp;# insert into DB...<br>
+&nbsp;&nbsp;return jsonify({"message": "Created"}), 201<br><br>
+@app.route('/api/patients/&lt;int:id&gt;', methods=['PUT','DELETE'])<br>
+def patient(id):<br>
+&nbsp;&nbsp;pass  # update or delete</code><br><br>
+<code>jsonify()</code> converts Python dict → JSON response. <code>request.get_json()</code> reads incoming JSON body.`,
+      tip: "Tie to HMS: 'Patient registration was POST /api/patients, appointment listing was GET — same pattern.'"
+    },
+    {
+      q: "What is the difference between request.form, request.get_json(), and request.args in Flask?",
+      diff: "easy",
+      a: `<strong>request.form['name']</strong> — Reads HTML form submissions. Content-Type is <code>application/x-www-form-urlencoded</code>. Traditional browser form POST.<br><br>
+<strong>request.get_json()</strong> — Reads JSON body. Content-Type is <code>application/json</code>. Used when React/fetch sends JSON to your API.<br><br>
+<strong>request.args.get('q')</strong> — Reads URL query params. e.g., <code>/search?q=john</code>.<br><br>
+In your HMS, Jinja2 forms use <code>request.form</code>. A React frontend would use <code>request.get_json()</code>.`
+    },
+    {
+      q: "How do you handle errors and HTTP status codes in a Flask REST API?",
+      diff: "med",
+      a: `Always return the right HTTP status code alongside your JSON response:<br><br>
+<code>@app.route('/api/patients/&lt;int:id&gt;')<br>
+def get_patient(id):<br>
+&nbsp;&nbsp;patient = db.get(id)<br>
+&nbsp;&nbsp;if not patient:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return jsonify({"error": "Not found"}), 404<br>
+&nbsp;&nbsp;return jsonify(patient), 200<br><br>
+@app.errorhandler(404)<br>
+def not_found(e):<br>
+&nbsp;&nbsp;return jsonify({"error": "Not found"}), 404</code><br><br>
+Codes to memorize: <strong>200</strong> OK · <strong>201</strong> Created · <strong>400</strong> Bad Request · <strong>401</strong> Unauthorized · <strong>404</strong> Not Found · <strong>500</strong> Server Error`
     },
     {
       q: "How would you optimize a slow Pandas operation on a large DataFrame?",
@@ -651,10 +874,10 @@ Use <code>is</code> for None checks: <code>if x is None</code> — this is the P
       a: `Since you've listed Pandas in your resume, expect this.<br><br>
 Optimization strategies:<ul>
 <li><strong>Avoid loops</strong>: Use vectorized operations or <code>.apply()</code> instead of <code>for</code> loops</li>
-<li><strong>Use appropriate dtypes</strong>: Change <code>float64</code> to <code>float32</code>, use <code>category</code> for repeated strings — reduces memory 50-70%</li>
-<li><strong>Query filtering early</strong>: Filter rows before operations, not after</li>
-<li><strong>Use <code>.loc</code> not chained indexing</strong>: Avoids SettingWithCopyWarning and is faster</li>
-<li><strong>Consider chunking</strong>: <code>read_csv(chunksize=10000)</code> for very large files</li>
+<li><strong>Use appropriate dtypes</strong>: <code>float32</code> instead of <code>float64</code>, <code>category</code> for repeated strings — reduces memory 50-70%</li>
+<li><strong>Filter early</strong>: Reduce rows before doing operations, not after</li>
+<li><strong>Use .loc</strong> not chained indexing: Avoids SettingWithCopyWarning and is faster</li>
+<li><strong>Chunking for large files</strong>: <code>pd.read_csv(chunksize=10000)</code></li>
 </ul>`
     }
   ],
@@ -662,41 +885,41 @@ Optimization strategies:<ul>
     {
       q: "What is the time complexity of searching in a hash map vs an array?",
       diff: "easy",
-      a: `<strong>Hash Map</strong>: O(1) average case for get/set/delete. This is because of hash function → direct memory address lookup. Worst case O(n) if many collisions.<br><br>
-<strong>Array (unsorted)</strong>: O(n) — must scan every element.<br>
+      a: `<strong>Hash Map</strong>: O(1) average case for get/set/delete — hash function maps directly to memory address. Worst case O(n) with many collisions.<br><br>
+<strong>Array (unsorted)</strong>: O(n) — scan every element.<br>
 <strong>Array (sorted, binary search)</strong>: O(log n).<br><br>
 This is why dictionaries/objects are preferred for lookups in Python/JS when performance matters.`,
-      tip: "Relate: 'In my placement website, I used dictionary lookups in Python to quickly map student IDs to profile data.'"
+      tip: "Relate: 'In my placement website, I used dictionary lookups to quickly map student IDs to profile data.'"
     },
     {
       q: "Explain the difference between GET and POST HTTP methods.",
       diff: "easy",
-      a: `<strong>GET</strong>: Retrieves data. Parameters in URL query string. Cached, bookmarkable, idempotent. Used for fetching pages, search results.<br><br>
-<strong>POST</strong>: Sends data to server. Data in request body (not URL). Not cached. Used for form submissions, creating resources, login.<br><br>
+      a: `<strong>GET</strong>: Retrieves data. Parameters go in URL query string. Cached, bookmarkable, idempotent. Used for fetching pages, search results.<br><br>
+<strong>POST</strong>: Sends data to server. Data goes in request body (not URL). Not cached. Used for form submissions, creating resources, login.<br><br>
 Other methods: <strong>PUT/PATCH</strong> (update), <strong>DELETE</strong> (remove). Together they form RESTful API conventions.`
     },
     {
       q: "What is the difference between synchronous and asynchronous programming?",
       diff: "med",
-      a: `<strong>Synchronous</strong>: Operations execute one at a time, in order. Next line waits for current to finish. Simple but blocks on slow operations (file I/O, network).<br><br>
-<strong>Asynchronous</strong>: Operations can be initiated without waiting for completion. The program continues and handles the result via callback/promise/async-await when ready.<br><br>
-Example: Fetching data from an API — async lets you continue rendering UI while waiting for response, instead of freezing.`,
-      tip: "In JavaScript (relevant for your frontend work): Promises and async/await are the modern way."
+      a: `<strong>Synchronous</strong>: One operation at a time, in order. Next line waits for current to finish. Simple but blocks on slow I/O or network.<br><br>
+<strong>Asynchronous</strong>: Initiate an operation and continue without waiting. Handle the result via callback/promise/async-await when ready.<br><br>
+Example: Fetching from an API — async lets you continue rendering UI while waiting, instead of freezing the page.`,
+      tip: "In JavaScript: Promises and async/await are the modern way to handle async code."
     },
     {
       q: "What is a REST API? How does it differ from GraphQL?",
       diff: "med",
-      a: `<strong>REST</strong>: Representational State Transfer. Resources mapped to URLs. Use HTTP verbs (GET/POST/PUT/DELETE). Each endpoint returns fixed data structure. Simple, widely adopted.<br><br>
-<strong>GraphQL</strong>: Query language for APIs. Single endpoint. Client specifies exactly what data it needs — no over-fetching or under-fetching. More complex to set up.<br><br>
-REST is better for: simple CRUD APIs, caching, public APIs.<br>
-GraphQL is better for: complex, nested data; mobile apps where bandwidth matters; rapidly changing frontend requirements.`
+      a: `<strong>REST</strong>: Resources mapped to URLs. Use HTTP verbs (GET/POST/PUT/DELETE). Each endpoint returns a fixed data structure. Simple, widely adopted, easy to cache.<br><br>
+<strong>GraphQL</strong>: Single endpoint. Client asks for exactly the data it needs — no over/under-fetching. More flexible but more complex to set up.<br><br>
+REST is better for: simple CRUD, public APIs, caching.<br>
+GraphQL is better for: complex nested data, mobile apps where bandwidth matters.`
     },
     {
       q: "What is the difference between OOP and functional programming?",
       diff: "med",
-      a: `<strong>OOP</strong>: Organizes code around objects (data + behavior bundled). Key principles: Encapsulation, Inheritance, Polymorphism, Abstraction. Python, Java, C++ support this.<br><br>
-<strong>Functional Programming</strong>: Organizes code around pure functions (no side effects, same input → same output). Avoids shared state. Python supports this via lambda, map/filter/reduce.<br><br>
-Most modern development is <strong>multi-paradigm</strong> — use objects for structure, pure functions for data transformations.`
+      a: `<strong>OOP</strong>: Organizes code around objects (data + behavior bundled). Key principles: Encapsulation, Inheritance, Polymorphism, Abstraction. Python, Java, C++.<br><br>
+<strong>Functional</strong>: Organizes code around pure functions — no side effects, same input always gives same output. Avoids shared state. Python supports this via lambda, map/filter/reduce.<br><br>
+Most modern development is <strong>multi-paradigm</strong> — objects for structure, pure functions for data transforms.`
     }
   ]
 };
@@ -707,6 +930,7 @@ const checklist = [
   "Practice explaining the 18-table schema aloud",
   "Revise React hooks (useState, useEffect, useMemo)",
   "Practice 2 SQL JOIN queries by hand",
+  "Revise fetch API + error handling (res.ok gotcha)",
   "Prepare 2 questions to ask the interviewer",
   "Get 8 hours of sleep tonight",
   "Check interview details: time, link/location, interviewer name"
@@ -732,15 +956,16 @@ function renderCards(containerId, questions) {
 }
 
 function toggle(section, idx) {
-  const card = document.getElementById(`card-${section}-${idx}`);
-  card.classList.toggle('open');
+  document.getElementById('card-' + section + '-' + idx).classList.toggle('open');
 }
 
 function showTab(name) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById(`tab-${name}`).classList.add('active');
-  event.currentTarget.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t => {
+    if (t.getAttribute('onclick') === "showTab('" + name + "')") t.classList.add('active');
+  });
 }
 
 function renderChecklist() {
@@ -754,12 +979,12 @@ function renderChecklist() {
 }
 
 function toggleCheck(i) {
-  document.getElementById(`chk-${i}`).classList.toggle('done');
+  document.getElementById('chk-' + i).classList.toggle('done');
 }
 
-// Init
 renderCards('q-resume', data.resume);
 renderCards('q-react', data.react);
+renderCards('q-js', data.js);
 renderCards('q-db', data.db);
 renderCards('q-python', data.python);
 renderCards('q-cs', data.cs);
