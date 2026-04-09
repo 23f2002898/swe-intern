@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Prep – Suryansh Bajpai</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --card: #1a1a26;
+    --border: #2a2a3d;
+    --accent: #6c63ff;
+    --accent2: #00d4aa;
+    --accent3: #ff6b6b;
+    --text: #e8e8f0;
+    --muted: #7070a0;
+    --tag-bg: #1e1e30;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #0e0e1a 0%, #14142a 50%, #0a0a1a 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 24px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(108,99,255,0.15) 0%, transparent 70%);
+    top: -100px; left: 50%; transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .header-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(22px, 6vw, 36px);
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 0%, #a0a0ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+  }
+  .header-sub {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 13px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .stat-chip {
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--muted);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .stat-chip span { color: var(--accent); font-weight: 600; }
+
+  /* TABS */
+  .tabs-wrap {
+    padding: 20px 16px 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs-wrap::-webkit-scrollbar { display: none; }
+  .tabs {
+    display: flex;
+    gap: 8px;
+    min-width: max-content;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0;
+  }
+  .tab {
+    padding: 10px 16px;
+    border: none;
+    background: none;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+    white-space: nowrap;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .tab-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+  .tab.active .tab-dot { opacity: 1; }
+
+  /* CONTENT */
+  .content { padding: 20px 16px; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* SECTION HEADER */
+  .section-intro {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* Q CARD */
+  .q-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .q-card:hover { border-color: #3a3a55; }
+  .q-card.open { border-color: var(--accent); }
+
+  .q-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .q-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    background: rgba(108,99,255,0.12);
+    border-radius: 6px;
+    padding: 3px 7px;
+    min-width: 34px;
+    text-align: center;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .q-text {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--text);
+  }
+  .q-badge {
+    font-size: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 2px 8px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .badge-hard { background: rgba(255,107,107,0.15); color: var(--accent3); }
+  .badge-med { background: rgba(255,193,7,0.12); color: #ffc107; }
+  .badge-easy { background: rgba(0,212,170,0.12); color: var(--accent2); }
+
+  .chevron {
+    font-size: 16px;
+    color: var(--muted);
+    transition: transform 0.25s;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .q-card.open .chevron { transform: rotate(180deg); color: var(--accent); }
+
+  .q-answer {
+    display: none;
+    padding: 0 16px 16px 16px;
+    border-top: 1px solid var(--border);
+  }
+  .q-card.open .q-answer { display: block; }
+
+  .answer-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--accent2);
+    letter-spacing: 2px;
+    margin: 12px 0 8px;
+    text-transform: uppercase;
+  }
+  .answer-text {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #c0c0d8;
+  }
+  .answer-text strong { color: var(--text); }
+  .answer-text code {
+    background: rgba(108,99,255,0.15);
+    color: #a0a0ff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+  }
+  .answer-text ul { padding-left: 18px; margin: 6px 0; }
+  .answer-text li { margin-bottom: 4px; }
+
+  .tip-box {
+    background: rgba(0,212,170,0.07);
+    border: 1px solid rgba(0,212,170,0.2);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--accent2);
+    display: flex; gap: 8px;
+  }
+  .tip-box::before { content: '💡'; flex-shrink: 0; }
+
+  /* PROGRESS */
+  .progress-bar-wrap {
+    background: var(--border);
+    border-radius: 4px;
+    height: 4px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* CHECKLIST */
+  .checklist-grid {
+    display: grid;
+    gap: 10px;
+  }
+  .check-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .check-item:hover { border-color: #3a3a55; }
+  .check-item.done { border-color: rgba(0,212,170,0.4); background: rgba(0,212,170,0.05); }
+  .check-box {
+    width: 20px; height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    transition: all 0.2s;
+  }
+  .check-item.done .check-box {
+    background: var(--accent2);
+    border-color: var(--accent2);
+    color: #000;
+  }
+  .check-label { font-size: 13px; color: var(--text); }
+  .check-item.done .check-label { color: var(--muted); text-decoration: line-through; }
+
+  /* TIPS SECTION */
+  .tip-grid { display: grid; gap: 12px; }
+  .tip-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .tip-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .tip-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-label">Interview Prep Kit</div>
+  <h1>Suryansh Bajpai</h1>
+  <div class="header-sub">Junior SWE Intern → PPO Target 🎯</div>
+  <div class="stats-row">
+    <div class="stat-chip"><span>35+</span> Questions</div>
+    <div class="stat-chip"><span>6</span> Categories</div>
+    <div class="stat-chip">Interview Tomorrow</div>
+  </div>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('resume')"><div class="tab-dot"></div>Resume-Based</button>
+    <button class="tab" onclick="showTab('react')"><div class="tab-dot"></div>React</button>
+    <button class="tab" onclick="showTab('db')"><div class="tab-dot"></div>SQL / MongoDB</button>
+    <button class="tab" onclick="showTab('python')"><div class="tab-dot"></div>Python / Flask</button>
+    <button class="tab" onclick="showTab('cs')"><div class="tab-dot"></div>CS Fundamentals</button>
+    <button class="tab" onclick="showTab('prep')"><div class="tab-dot"></div>Day-of Prep</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ===================== RESUME ===================== -->
+<div id="tab-resume" class="section active">
+  <div class="section-intro">These are drawn directly from your resume. Expect the interviewer to drill into your projects and numbers. Have crisp, specific answers ready.</div>
+
+  <div id="q-resume"></div>
+</div>
+
+<!-- ===================== REACT ===================== -->
+<div id="tab-react" class="section">
+  <div class="section-intro">Your resume lists ReactJS — be ready for conceptual + practical questions. Focus on hooks, component lifecycle, and state management.</div>
+  <div id="q-react"></div>
+</div>
+
+<!-- ===================== DB ===================== -->
+<div id="tab-db" class="section">
+  <div class="section-intro">You've listed MySQL, PostgreSQL, MongoDB, and SQLite — all fair game. Expect JOIN queries, indexing, and NoSQL vs SQL trade-offs.</div>
+  <div id="q-db"></div>
+</div>
+
+<!-- ===================== PYTHON ===================== -->
+<div id="tab-python" class="section">
+  <div class="section-intro">Python is your primary language and Flask is in your projects. Expect language fundamentals + Flask-specific questions.</div>
+  <div id="q-python"></div>
+</div>
+
+<!-- ===================== CS FUNDAMENTALS ===================== -->
+<div id="tab-cs" class="section">
+  <div class="section-intro">For a junior SWE intern role, expect basic DSA, OOP, and web fundamentals. Don't overthink — clean answers beat perfect ones.</div>
+  <div id="q-cs"></div>
+</div>
+
+<!-- ===================== PREP ===================== -->
+<div id="tab-prep" class="section">
+  <div class="tip-grid">
+    <div class="tip-card">
+      <div class="tip-card-title">🕗 Tonight</div>
+      <p>Re-read your own resume once. Know every number you wrote (4200 users, 18 tables, 25% efficiency). Interviewers love asking "how did you measure that?"</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-card-title">💬 STAR Method</div>
+      <p>For behavioral questions: <strong>S</strong>ituation → <strong>T</strong>ask → <strong>A</strong>ction → <strong>R</strong>esult. Every project story should follow this structure.</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-card-title">❓ Questions to Ask Them</div>
+      <p>"What does the tech stack look like?" / "What would success look like in the first 3 months?" / "How does the PPO conversion process work?" — shows genuine interest.</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-card-title">🧠 If You Don't Know</div>
+      <p>Say: "I haven't used that specifically, but the closest I've worked with is X. I'd pick it up quickly — here's how I learn new things…" Never bluff.</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-card-title">⚡ Your Strongest Card</div>
+      <p>You have REAL production experience — 4000+ student placement site, 4200+ user analytics. Lead with this. Most interns have only tutorial projects. You shipped real things.</p>
+    </div>
+  </div>
+
+  <div style="margin-top:24px">
+    <div class="answer-label">Pre-Interview Checklist</div>
+    <div class="checklist-grid" id="checklist"></div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const data = {
+  resume: [
+    {
+      q: "Walk me through your Placement Cell Website project.",
+      diff: "easy",
+      a: `Start with the <strong>problem</strong>: the college had no digital placement portal. You built one solo/in a small team using HTML, CSS, Bootstrap.<br><br>
+Key metrics to mention: <strong>10+ features</strong>, <strong>4000+ students</strong>, <strong>50+ recruiters</strong>, <strong>2000+ monthly visits</strong>, delivered in <strong>2 months</strong>.<br><br>
+Mention the challenges: making it responsive for mobile, handling concurrent recruiter/student access, SEO/visibility for monthly visits metric.`,
+      tip: "End with: 'This is live today and still being used, which taught me the importance of maintainable code.'"
+    },
+    {
+      q: "Your resume says you built a 18-table database schema. Explain the design decisions.",
+      diff: "hard",
+      a: `Explain the major entities: <strong>Students, Recruiters, Job Postings, Applications, Interview Rounds, Results</strong> — these alone give ~6-8 tables.<br><br>
+Talk about normalization: you avoided data duplication by separating company info from job postings. Mention foreign keys and indexes on frequently-queried columns (student_id, company_id).<br><br>
+If asked why 18 specifically — talk about junction tables (many-to-many: student–skills, student–companies), lookup tables (departments, statuses), and audit/log tables.`,
+      tip: "Interviewers love when you say 'I designed it to support future features, not just current ones.'"
+    },
+    {
+      q: "How did you handle analytics for 4200+ users? What metrics did you track?",
+      diff: "med",
+      a: `This came from your PGDAV College Frontend Developer role. Likely used <strong>Google Analytics</strong> (you listed it from Vavo Digital) or server-side logging.<br><br>
+Key metrics for a placement site: page views per recruiter listing, application submission rate, time-to-apply funnel, peak usage times (placement season).<br><br>
+If it was MySQL-based: explain query logs, aggregation queries (COUNT, GROUP BY), and how you surfaced insights to stakeholders.`,
+      tip: "If pushed, mention: dashboards you built, charts using Chart.js/Matplotlib, or exports to Excel."
+    },
+    {
+      q: "Tell me about your Hospital Management System — what was the hardest part?",
+      diff: "med",
+      a: `Stack: <strong>HTML, CSS, Jinja2, Flask, Bootstrap, SQLite</strong>. Core modules: patient registration, doctor management, appointment booking, medical history.<br><br>
+<strong>Hardest part</strong> (pick one): <ul><li>Appointment conflict detection — ensuring no double-booking for a doctor at the same time slot</li><li>Jinja2 templating for dynamic forms that adapt to patient vs. doctor views</li><li>Session management in Flask for role-based access (admin vs. doctor vs. receptionist)</li></ul>`,
+      tip: "Mention any edge cases you handled — e.g., what happens if a patient cancels 5 minutes before?"
+    },
+    {
+      q: "At Vavo Digital, you improved outreach efficiency by 25%. How did you measure that?",
+      diff: "hard",
+      a: `This is a probing question — be honest and specific. The Excel tracking system had <strong>500+ records</strong>.<br><br>
+Efficiency gain could be measured by: <strong>time per record processed</strong> (before vs. after automation), response rate on outreach, or number of contacts reached per week.<br><br>
+25% = baseline was X contacts/week, you got to 1.25X after the system was implemented. Tie it to a formula or comparison period (e.g., first month vs. second month).`,
+      tip: "If you're unsure of exact methodology, say: 'We measured it by tracking weekly outreach volume in the same Excel system.'"
+    },
+    {
+      q: "You're in IIT Madras BS + PGDAV simultaneously. How do you manage both?",
+      diff: "easy",
+      a: `IIT Madras BS in Data Science is online/self-paced — emphasize this. It doesn't conflict with PGDAV classes.<br><br>
+Talk about time management: dedicated study blocks, using weekends for IIT assignments, leveraging overlap (Python/stats skills apply to both).<br><br>
+Frame it as a <strong>strength</strong>: "It's made me highly self-disciplined and comfortable learning independently — skills that are crucial for remote/async work in startups."`,
+      tip: "Mention one thing from the IIT curriculum you've applied: NumPy, Pandas, statistics, ML basics."
+    },
+    {
+      q: "As a Student Coordinator on the ERP Committee — what did you actually build?",
+      diff: "med",
+      a: `You were <strong>1 of 2 students</strong> selected — lead with that exclusivity. Your role: early-stage system design, requirements analysis, feature implementation in production.<br><br>
+An ERP (Enterprise Resource Planning) for a college covers: attendance, fee management, timetable, library, hostel. You were in the requirements + design phase.<br><br>
+Talk about: gathering requirements from faculty/admin, creating user stories, deciding data models, or participating in code reviews.`,
+      tip: "If asked about tech stack: it's fine to say it's being decided — what matters is your process."
+    },
+    {
+      q: "Why do you want this Junior SWE Intern role specifically?",
+      diff: "easy",
+      a: `Structure: <strong>Past → Present → Future</strong>.<br><br>
+Past: "I've built real production systems — placement portal, hospital management system — and I want to work at scale beyond college projects."<br><br>
+Present: "This role aligns with my stack (web dev, databases) and I'm excited about [their product/domain]."<br><br>
+Future: "The PPO potential means I'm looking for a place where I can grow long-term, not just tick an internship box."`,
+      tip: "Research the company tonight — mention one specific thing about their product."
+    }
+  ],
+  react: [
+    {
+      q: "What is the Virtual DOM and how does React use it?",
+      diff: "easy",
+      a: `The Virtual DOM is a <strong>lightweight JavaScript representation</strong> of the real DOM kept in memory.<br><br>
+When state changes, React: <strong>(1)</strong> creates a new Virtual DOM tree, <strong>(2)</strong> diffs it with the previous one (reconciliation), <strong>(3)</strong> updates only the changed parts in the real DOM (patching).<br><br>
+This is faster than directly manipulating the DOM because batch updates are computed in memory first.`,
+      tip: "Compare: 'In vanilla JS, every DOM manipulation is expensive. React batches them.'"
+    },
+    {
+      q: "Explain useState and useEffect with an example.",
+      diff: "easy",
+      a: `<code>useState</code> manages component-level state. <code>useEffect</code> handles side effects (API calls, subscriptions, timers).<br><br>
+Example: <br>
+<code>const [data, setData] = useState(null);</code><br>
+<code>useEffect(() => { fetch('/api').then(r => r.json()).then(setData); }, []);</code><br><br>
+The empty array <code>[]</code> as dependency means it runs once on mount. Add a variable to re-run when it changes.`,
+      tip: "Always mention cleanup: 'useEffect can return a cleanup function to cancel subscriptions or timers on unmount.'"
+    },
+    {
+      q: "What are controlled vs uncontrolled components?",
+      diff: "med",
+      a: `<strong>Controlled</strong>: React state is the single source of truth. Every keystroke triggers setState. You always know the input value.<br>
+<code>&lt;input value={val} onChange={e => setVal(e.target.value)} /&gt;</code><br><br>
+<strong>Uncontrolled</strong>: DOM manages its own state. You read the value using a <code>ref</code> when needed (e.g., on submit).<br><br>
+Use controlled for form validation, use uncontrolled for simple file inputs or integrating with non-React libraries.`
+    },
+    {
+      q: "What is prop drilling and how do you solve it?",
+      diff: "med",
+      a: `Prop drilling = passing props through many intermediate components that don't use them, just to get data to a deeply nested child.<br><br>
+Solutions:<ul>
+<li><strong>Context API</strong>: <code>React.createContext()</code> + <code>useContext()</code> — good for global state like auth, theme</li>
+<li><strong>State management libraries</strong>: Redux, Zustand, Jotai for complex apps</li>
+<li><strong>Component composition</strong>: restructure components so the consumer is closer to the provider</li>
+</ul>`,
+      tip: "Say: 'For the Placement Cell, if I were to rebuild it in React, I'd use Context for student auth state.'"
+    },
+    {
+      q: "What is the difference between useMemo and useCallback?",
+      diff: "hard",
+      a: `Both are for <strong>performance optimization</strong> — they memoize (cache) values to avoid unnecessary re-computation.<br><br>
+<code>useMemo</code>: memoizes the <strong>result of a function</strong>. Use when a calculation is expensive.<br>
+<code>const sorted = useMemo(() => heavySort(list), [list]);</code><br><br>
+<code>useCallback</code>: memoizes the <strong>function itself</strong>. Use when passing callbacks to child components to prevent re-renders.<br>
+<code>const handleClick = useCallback(() => doSomething(id), [id]);</code>`,
+      tip: "Don't over-optimize. Premature memoization adds complexity. Only use when you see actual performance issues."
+    },
+    {
+      q: "How does React handle forms? Have you used any form libraries?",
+      diff: "easy",
+      a: `React handles forms via controlled components — each input's value is tied to state.<br><br>
+Basic pattern: one <code>handleChange</code> function for all fields using <code>e.target.name</code> and <code>e.target.value</code>.<br><br>
+Libraries: <strong>React Hook Form</strong> (most popular — minimal re-renders), <strong>Formik</strong> (older, more verbose), <strong>Zod/Yup</strong> for validation schema.<br><br>
+If you haven't used them: "I've handled forms manually, but I know React Hook Form is the industry standard for performance."`,
+      tip: "Tie to your project: 'In the hospital system, I managed appointment booking forms in Flask/Jinja — the same concepts of validation and state apply.'"
+    }
+  ],
+  db: [
+    {
+      q: "Write a SQL query to find the top 3 recruiters by number of students placed.",
+      diff: "med",
+      a: `<code>SELECT r.name, COUNT(p.student_id) AS placed<br>
+FROM recruiters r<br>
+JOIN placements p ON r.id = p.recruiter_id<br>
+GROUP BY r.id, r.name<br>
+ORDER BY placed DESC<br>
+LIMIT 3;</code><br><br>
+Key concepts used: <strong>JOIN</strong> (combining tables), <strong>GROUP BY</strong> (aggregate per recruiter), <strong>ORDER BY DESC</strong>, <strong>LIMIT</strong>.`,
+      tip: "Always clarify the schema first: 'Assuming a placements table with recruiter_id and student_id...'"
+    },
+    {
+      q: "What is the difference between INNER JOIN, LEFT JOIN, and RIGHT JOIN?",
+      diff: "easy",
+      a: `<strong>INNER JOIN</strong>: Returns rows where there's a match in BOTH tables. Most common.<br><br>
+<strong>LEFT JOIN</strong>: Returns ALL rows from left table + matching rows from right. Non-matches show NULL.<br>
+Use case: "Show all students, even those not yet placed."<br><br>
+<strong>RIGHT JOIN</strong>: Opposite of LEFT JOIN. All rows from right table.<br><br>
+<strong>FULL OUTER JOIN</strong>: All rows from both, NULLs where no match (not supported in MySQL directly).`
+    },
+    {
+      q: "What is database indexing and when should you use it?",
+      diff: "med",
+      a: `An index is a data structure (B-tree by default in MySQL) that allows faster lookup — like a book's index vs reading every page.<br><br>
+<strong>Use index when</strong>: columns frequently used in WHERE, JOIN ON, or ORDER BY clauses. Example: <code>CREATE INDEX idx_student_id ON applications(student_id);</code><br><br>
+<strong>Downsides</strong>: Indexes slow down INSERT/UPDATE/DELETE (index must be updated too) and consume disk space. Don't index every column.`,
+      tip: "Relate to your 18-table schema: 'I indexed foreign keys like student_id and company_id for faster JOIN queries.'"
+    },
+    {
+      q: "What is the difference between MongoDB and MySQL? When would you choose one over the other?",
+      diff: "med",
+      a: `<strong>MySQL (Relational)</strong>: Tables with fixed schema, SQL, ACID compliant. Best for structured data with relationships — banking, ERP, placement systems.<br><br>
+<strong>MongoDB (NoSQL/Document)</strong>: Stores JSON-like documents, flexible schema, horizontal scaling. Best for unstructured/semi-structured data — user activity logs, content management, real-time apps.<br><br>
+Choose MongoDB when: schema evolves rapidly, data is hierarchical/nested, need high write throughput.<br>
+Choose MySQL when: data integrity is critical, complex relationships, transactions needed.`,
+      tip: "Mention your actual use: 'I used MySQL for the placement site because it had strict relational data. For a user activity feed, I'd consider MongoDB.'"
+    },
+    {
+      q: "Explain what a transaction is and what ACID properties mean.",
+      diff: "hard",
+      a: `A transaction is a sequence of operations that executes as a single unit — all or nothing.<br><br>
+<strong>ACID</strong>:<ul>
+<li><strong>Atomicity</strong>: Either all operations succeed or none do (no partial updates)</li>
+<li><strong>Consistency</strong>: Database moves from one valid state to another</li>
+<li><strong>Isolation</strong>: Concurrent transactions don't interfere with each other</li>
+<li><strong>Durability</strong>: Committed transactions survive system failures</li>
+</ul>
+Example: Bank transfer — debit account A AND credit account B must both succeed, or both roll back.`,
+      tip: "For SQLite (which you used): 'SQLite supports full ACID compliance, which was important for the Hospital Management System where data integrity is critical.'"
+    },
+    {
+      q: "What is a MongoDB aggregation pipeline?",
+      diff: "hard",
+      a: `An aggregation pipeline processes documents through a series of stages, each transforming the data.<br><br>
+Common stages:<ul>
+<li><code>$match</code>: Filter documents (like WHERE)</li>
+<li><code>$group</code>: Group and aggregate (like GROUP BY)</li>
+<li><code>$sort</code>: Sort results</li>
+<li><code>$project</code>: Select/rename fields</li>
+<li><code>$lookup</code>: Join with another collection</li>
+</ul>
+Example: Get average salary by department from a jobs collection using <code>$match → $group → $sort</code>.`
+    }
+  ],
+  python: [
+    {
+      q: "What is the difference between a list and a tuple in Python?",
+      diff: "easy",
+      a: `<strong>List</strong>: Mutable (can be changed), uses <code>[]</code>. Use for collections that change — shopping cart, search results.<br><br>
+<strong>Tuple</strong>: Immutable (cannot be changed), uses <code>()</code>. Use for fixed data — coordinates, RGB values, database records returned from a query.<br><br>
+Tuples are slightly <strong>faster</strong> and use less memory. They're also hashable (can be dictionary keys).`,
+      tip: "Fun fact: Function return values in Python are often tuples — e.g., returning (status_code, message)."
+    },
+    {
+      q: "Explain Flask routing and how you handled different HTTP methods.",
+      diff: "med",
+      a: `Flask routes map URLs to Python functions using the <code>@app.route()</code> decorator.<br><br>
+<code>@app.route('/patients', methods=['GET', 'POST'])</code><br>
+<code>def patients():</code><br>
+<code>&nbsp;&nbsp;if request.method == 'POST': # handle form submission</code><br>
+<code>&nbsp;&nbsp;return render_template('patients.html')</code><br><br>
+In the Hospital Management System: GET for viewing patient list, POST for registering new patient, possibly PUT/DELETE for updates via fetch/AJAX.`,
+      tip: "Mention: 'I used request.form for form data and session for login state management.'"
+    },
+    {
+      q: "What are Python decorators? Give a real-world example.",
+      diff: "hard",
+      a: `A decorator is a function that <strong>wraps another function</strong> to add behavior without modifying it.<br><br>
+Syntax: <code>@decorator_name</code> above a function definition.<br><br>
+Real examples:<ul>
+<li><strong>Flask routes</strong>: <code>@app.route('/dashboard')</code> is a decorator</li>
+<li><strong>Auth guard</strong>: <code>@login_required</code> — checks if user is logged in before executing the view</li>
+<li><strong>Timing</strong>: Wrap any function to measure execution time</li>
+</ul>
+This is the <strong>decorator pattern</strong> — adds cross-cutting concerns without touching core logic.`,
+      tip: "Great answer: 'In my Flask app, I implemented a custom @login_required decorator to protect patient routes.'"
+    },
+    {
+      q: "What is the difference between == and 'is' in Python?",
+      diff: "easy",
+      a: `<strong>==</strong> checks <strong>value equality</strong> — do both objects have the same value?<br><br>
+<strong>is</strong> checks <strong>identity</strong> — are both variables pointing to the same object in memory?<br><br>
+<code>a = [1,2,3]; b = [1,2,3]</code><br>
+<code>a == b → True</code> (same value)<br>
+<code>a is b → False</code> (different objects in memory)<br><br>
+Use <code>is</code> for None checks: <code>if x is None</code> — this is the Pythonic way.`
+    },
+    {
+      q: "How would you optimize a slow Pandas operation on a large DataFrame?",
+      diff: "hard",
+      a: `Since you've listed Pandas in your resume, expect this.<br><br>
+Optimization strategies:<ul>
+<li><strong>Avoid loops</strong>: Use vectorized operations or <code>.apply()</code> instead of <code>for</code> loops</li>
+<li><strong>Use appropriate dtypes</strong>: Change <code>float64</code> to <code>float32</code>, use <code>category</code> for repeated strings — reduces memory 50-70%</li>
+<li><strong>Query filtering early</strong>: Filter rows before operations, not after</li>
+<li><strong>Use <code>.loc</code> not chained indexing</strong>: Avoids SettingWithCopyWarning and is faster</li>
+<li><strong>Consider chunking</strong>: <code>read_csv(chunksize=10000)</code> for very large files</li>
+</ul>`
+    }
+  ],
+  cs: [
+    {
+      q: "What is the time complexity of searching in a hash map vs an array?",
+      diff: "easy",
+      a: `<strong>Hash Map</strong>: O(1) average case for get/set/delete. This is because of hash function → direct memory address lookup. Worst case O(n) if many collisions.<br><br>
+<strong>Array (unsorted)</strong>: O(n) — must scan every element.<br>
+<strong>Array (sorted, binary search)</strong>: O(log n).<br><br>
+This is why dictionaries/objects are preferred for lookups in Python/JS when performance matters.`,
+      tip: "Relate: 'In my placement website, I used dictionary lookups in Python to quickly map student IDs to profile data.'"
+    },
+    {
+      q: "Explain the difference between GET and POST HTTP methods.",
+      diff: "easy",
+      a: `<strong>GET</strong>: Retrieves data. Parameters in URL query string. Cached, bookmarkable, idempotent. Used for fetching pages, search results.<br><br>
+<strong>POST</strong>: Sends data to server. Data in request body (not URL). Not cached. Used for form submissions, creating resources, login.<br><br>
+Other methods: <strong>PUT/PATCH</strong> (update), <strong>DELETE</strong> (remove). Together they form RESTful API conventions.`
+    },
+    {
+      q: "What is the difference between synchronous and asynchronous programming?",
+      diff: "med",
+      a: `<strong>Synchronous</strong>: Operations execute one at a time, in order. Next line waits for current to finish. Simple but blocks on slow operations (file I/O, network).<br><br>
+<strong>Asynchronous</strong>: Operations can be initiated without waiting for completion. The program continues and handles the result via callback/promise/async-await when ready.<br><br>
+Example: Fetching data from an API — async lets you continue rendering UI while waiting for response, instead of freezing.`,
+      tip: "In JavaScript (relevant for your frontend work): Promises and async/await are the modern way."
+    },
+    {
+      q: "What is a REST API? How does it differ from GraphQL?",
+      diff: "med",
+      a: `<strong>REST</strong>: Representational State Transfer. Resources mapped to URLs. Use HTTP verbs (GET/POST/PUT/DELETE). Each endpoint returns fixed data structure. Simple, widely adopted.<br><br>
+<strong>GraphQL</strong>: Query language for APIs. Single endpoint. Client specifies exactly what data it needs — no over-fetching or under-fetching. More complex to set up.<br><br>
+REST is better for: simple CRUD APIs, caching, public APIs.<br>
+GraphQL is better for: complex, nested data; mobile apps where bandwidth matters; rapidly changing frontend requirements.`
+    },
+    {
+      q: "What is the difference between OOP and functional programming?",
+      diff: "med",
+      a: `<strong>OOP</strong>: Organizes code around objects (data + behavior bundled). Key principles: Encapsulation, Inheritance, Polymorphism, Abstraction. Python, Java, C++ support this.<br><br>
+<strong>Functional Programming</strong>: Organizes code around pure functions (no side effects, same input → same output). Avoids shared state. Python supports this via lambda, map/filter/reduce.<br><br>
+Most modern development is <strong>multi-paradigm</strong> — use objects for structure, pure functions for data transformations.`
+    }
+  ]
+};
+
+const checklist = [
+  "Review Placement Cell Website live URL and metrics",
+  "Re-read all resume bullet points once",
+  "Practice explaining the 18-table schema aloud",
+  "Revise React hooks (useState, useEffect, useMemo)",
+  "Practice 2 SQL JOIN queries by hand",
+  "Prepare 2 questions to ask the interviewer",
+  "Get 8 hours of sleep tonight",
+  "Check interview details: time, link/location, interviewer name"
+];
+
+function renderCards(containerId, questions) {
+  const c = document.getElementById(containerId);
+  c.innerHTML = questions.map((item, i) => `
+    <div class="q-card" id="card-${containerId}-${i}">
+      <div class="q-header" onclick="toggle('${containerId}',${i})">
+        <div class="q-num">Q${i+1}</div>
+        <div class="q-text">${item.q}</div>
+        <div class="q-badge badge-${item.diff === 'hard' ? 'hard' : item.diff === 'med' ? 'med' : 'easy'}">${item.diff === 'hard' ? 'Hard' : item.diff === 'med' ? 'Medium' : 'Easy'}</div>
+        <div class="chevron">▾</div>
+      </div>
+      <div class="q-answer">
+        <div class="answer-label">Model Answer</div>
+        <div class="answer-text">${item.a}</div>
+        ${item.tip ? `<div class="tip-box">${item.tip}</div>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggle(section, idx) {
+  const card = document.getElementById(`card-${section}-${idx}`);
+  card.classList.toggle('open');
+}
+
+function showTab(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(`tab-${name}`).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+function renderChecklist() {
+  const c = document.getElementById('checklist');
+  c.innerHTML = checklist.map((item, i) => `
+    <div class="check-item" id="chk-${i}" onclick="toggleCheck(${i})">
+      <div class="check-box">✓</div>
+      <div class="check-label">${item}</div>
+    </div>
+  `).join('');
+}
+
+function toggleCheck(i) {
+  document.getElementById(`chk-${i}`).classList.toggle('done');
+}
+
+// Init
+renderCards('q-resume', data.resume);
+renderCards('q-react', data.react);
+renderCards('q-db', data.db);
+renderCards('q-python', data.python);
+renderCards('q-cs', data.cs);
+renderChecklist();
+</script>
+</body>
+</html>
